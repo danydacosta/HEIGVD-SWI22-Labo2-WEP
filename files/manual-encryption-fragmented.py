@@ -49,7 +49,6 @@ for i in range(len(messages)):
     arp[2].wepdata = encrypted_messages[i][:-4]  # message chiffré
     arp[2].icv = int.from_bytes(
         encrypted_messages[i][-4:], byteorder='big')  # icv chiffré
-    # arp[2].iv = i.to_bytes(3, 'big')
 
     print('ICV no ' + str(i) + ' : ' + '{:x}'.format(arp[2].icv))
 
@@ -58,6 +57,7 @@ for i in range(len(messages)):
 
     packets.append(arp)
 
+print(packets)
 # Enregistrement dans un nouveau .cap
 wrpcap(OUTPUT_CAP_FILENAME, PacketList(packets), append=False)
 print('Manual-encrypted fragmented messages saved in ' + OUTPUT_CAP_FILENAME)
